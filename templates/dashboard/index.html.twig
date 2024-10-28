@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tableau de bord / statistique globales{% endblock %}
+
+{% block stylesheets %}
+{{ parent() }}
+<link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
+{% endblock %}
+
+{% block body %}
+<header>
+    <h1 class="text-center p-3">Tableau de bord</h1>
+</header>
+{% endblock %}

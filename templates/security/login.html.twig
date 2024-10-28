@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bienvenue • S'identifier{% endblock %}
+
+{% block stylesheets %}
+{{ parent() }}
+<link rel="stylesheet" href="{{ asset('css/login.css') }}">
+{% endblock %}
+
+{% block body %}
+<header>
+    <h1 class="text-center p-3"> Bienvenue</h1>
+</header>
+<div class="login-container">
+    {% if app.user %}
+        <div class="mb-3">
+            Vous êtes connecté en tant que {{ app.user.userIdentifier }},
+            <form action="{{ path('security_logout') }}" method="post">
+                <button type="submit" class="btn btn-link">Se déconnecter</button>
+            </form>
+        </div>
+    {% else %}
+        <form action="{{ path('security_login') }}" method="post" style="display: inline;">
+            <h1 class="h3 mb-3 font-weight-normal">Se connecter</h1>
+
+            <label for="inputEmail">Email : </label>
+            <input type="email" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+
+            <label for="inputPassword">Mot de passe :</label>
+            <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+            <div class="checkbox mb-3">
+                <label>
+                    <input type="checkbox" name="_remember_me"> Souviens-toi de moi ?
+                </label>
+            </div>
+
+            <button class="btn btn-lg btn-primary" type="submit">Se connecter</button>
+        </form>
+    {% endif %}
+</div>
+{% endblock %}
