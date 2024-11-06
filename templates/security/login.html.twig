@@ -9,7 +9,7 @@
 
 {% block body %}
 <header>
-    <h1 class="text-center p-3"> Bienvenue</h1>
+    <h1 class="text-center p-3 text-white"> Bienvenue</h1>
 </header>
 <div class="login-container">
     {% if app.user %}
@@ -22,6 +22,12 @@
     {% else %}
         <form action="{{ path('security_login') }}" method="post" style="display: inline;">
             <h1 class="h3 mb-3 font-weight-normal">Se connecter</h1>
+
+            {% if error %}
+                <div class="alert alert-danger">
+                    Impossible de se connecter. Vérifiez votre email et votre mot de passe et réessayez.
+                </div>
+            {% endif %}
 
             <label for="inputEmail">Email : </label>
             <input type="email" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
