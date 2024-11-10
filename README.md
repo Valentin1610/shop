@@ -4,6 +4,8 @@
 
 Cette page est une interface de connexion pour les utilisateurs. Elle permet aux utilisateurs de saisir leurs identifiants (adresse e-mail et mot de passe) afin de se connecter à l'application. L'interface est simple et comprend des éléments de navigation, un formulaire de connexion, ainsi qu'un pied de page.
 
+![](public/Connexion.png)
+
 ## Sections
 
 ### 1. En-tête
