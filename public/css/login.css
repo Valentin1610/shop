@@ -33,3 +33,22 @@
     border-radius: 5px 0px 5px 0px;
     color: white;
 }
+.password-field {
+    position: relative;
+}
+
+.password-field i {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.pw_hide {
+    cursor: pointer;
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+}

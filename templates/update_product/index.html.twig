@@ -1,0 +1,88 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier le produit{% endblock %}
+
+{% block stylesheets %}
+{{ parent() }}
+<link rel="stylesheet" href="{{ asset('css/addProduct.css') }}">
+{% endblock %}
+
+{% block body %}
+<header>
+    <h1 class="text-center p-3 text-white"> Modifier le produit </h1>
+    </header>
+
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+<form class="add-product-form" method="POST" enctype="multipart/form-data">
+    <div>
+        <label for="name">Nom :</label>
+        <input type="text" id="name" name="name" value="{{product.name}}" required>
+    </div>
+
+    <div>
+        <label for="reference">Référence :</label>
+        <input type="text" id="reference" name="reference" value="{{product.reference}}" required>
+    </div>
+
+    <div>
+        <label for="description">Description :</label>
+        <textarea id="description" name="description"required> {{product.description}} </textarea>
+    </div>
+
+    <div>
+        <label for="price">Prix :</label>
+        <input type="number" id="price" name="price" step="0.01" value="{{product.price}}"  required>
+    </div>
+
+    <div>
+        <label for="image">Image :</label>
+        <input type="file" id="image" name="image" value="{{product.image}}"  accept="image/*">
+    </div>
+
+    <div>
+        <label for="emplacement_rayonnage">Emplacement de rayon :</label>
+        <input type="text" id="emplacement_rayonnage" name="emplacement_rayonnage" value="{{product.EmplacementRayonnage}}" required>
+    </div>
+
+    <div>
+        <label for="stock">Quantité :</label>
+        <input type="number" id="stock" name="stock" min="1" value="{{product.stock}}" required>
+    </div>
+
+    <div>
+        <label for="category">Catégorie :</label>
+        <select id="category" name="category" required>
+            <option value="">-- Sélectionner --</option>
+            {% for category in categories %}
+                <option value="{{ category.id }}"{% if category.id == product.category.id %}selected{% endif %}>{{ category.name }}  </option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div>
+        <label for="supplier">Fournisseur :</label>
+        <select id="supplier" name="supplier" required>
+            <option value="">-- Sélectionner --</option>
+            {% for supplier in suppliers %}
+                <option value="{{ supplier.IdSuppliers }}" {% if supplier.IdSuppliers  == product.supplier.IdSuppliers  %}selected{% endif %}>{{ supplier.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="submit-container mt-4 text-center">
+        <button type="submit">Modifier le produit</button>
+        <a href="{{ path('products') }}" class="btn btn-secondary">Retour à la liste</a>
+    </div>
+</form>
+    <div class="text-center">
+        <form method="POST" action="{{ path('delete_product', {id: product.id_products}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce Produit ?');">
+            <button type="submit" class="btn btn-danger">Supprimer</button>
+        </form>
+    </div>
+
+{% endblock %}

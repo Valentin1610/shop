@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Fournisseurs{% endblock %}
+
+{% block stylesheets %}
+{{ parent() }}
+<link rel="stylesheet" href="{{ asset('css/listCategories.css') }}">
+{% endblock %}
+
+{% block body %}
+
+<header> 
+    <h1 class="text-center p-3 text-white">Nos Fournisseurs</h1>
+</header>
+
+<div class="container category-list mt-4">
+    {% for supplier in suppliers %}
+        <div class="category-card">
+            <h5>{{supplier.denomination}}</h5>
+            <a href="{{ path('update_supplier', {id: supplier.idSuppliers}) }}" class="btn">Modifier le Fournisseur</a>
+        </div>
+    {% else %}
+        <p> Aucun Fournisseur trouvé.</p>
+    {% endfor %}
+</div>
+<div class="text-center mb-3">
+    <a href="add_supplier" class="button">Ajouter un Fournisseur</a>
+</div>
+<div class="pagination">
+    {% if currentPage > 1 %}
+        <a href="?page={{ currentPage - 1 }}" class="button">Précédent</a>
+    {% endif %}
+    <span>Page {{ currentPage }} / {{ totalPages }}</span>
+    {% if currentPage < totalPages %}
+        <a href="?page={{ currentPage + 1 }}" class="button">Suivant</a>
+    {% endif %}
+</div>
+
+{% endblock %}

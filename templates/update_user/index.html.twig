@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mettre à jour l'utilisateur{% endblock %}
+
+{% block stylesheets %}
+
+{{ parent() }}
+<link rel="stylesheet" href="{{ asset('css/addUser.css') }}">
+
+{% endblock %}
+
+{% block body %}
+<header>
+    <h1 class="text-center p-3 text-white">Modifier l'utilisateur</h1>
+</header>
+
+<div>
+    {% for message in app.flashes('success')%}
+        <div class="alert alert-success">
+            {{message}}
+        </div>
+    {% endfor %}
+
+    {% for message in app.flashes('danger') %}
+        <div class="alert alert-danger">
+            {{message}}
+        </div>
+    {% endfor %}
+    <form method="POST" class="form-container">
+        <div class="form-group">
+            <label for="lastname"> Nom : </label>
+            <input type="text" id="lastname" name="lastname" value="{{user.lastname}}" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="firstname"> Prénom : </label>
+            <input type="text" id="firstname" name="firstname" value="{{user.firstname}}" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="email"> Email : </label>
+            <input type="email" id="email" name="email" value="{{user.email}}" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="password"> Mot de passe :</label>
+            <input type="password" id="password" name="password" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="role"> Role :</label>
+            <select id="role" name="role" class="form-control">
+                <option disabled selected>-- Veuillez choisir votre rôle --</option>
+                <option value="Acheteur" {% if user.roles[0] == 'Acheteur' %}selected{% endif %}>Acheteur</option>
+                <option value="Logisticien" {% if user.roles[0] == 'Logisticien' %}selected{% endif %}>Logisticien</option>
+                <option value="Gestionnaire" {% if user.roles[0] == 'Gestionnaire' %}selected{% endif %}>Gestionnaire</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="phone"> Telephone :</label>
+            <input type="text" id="phone" name="phone" value="{{user.phone}}" class="form-control">
+        </div>
+        <div class="submit-container mt-4 text-center">
+            <button type="submit" class="btn btn-primary">Mettre à jour l'utilisateur</button>
+            <a href="{{ path('users') }}" class="btn btn-secondary">Retour à la liste</a>
+        </div>
+    </form>
+    <div class="text-center">
+        <form method="POST">
+            <button type="submit" class="btn btn-danger">Supprimer</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

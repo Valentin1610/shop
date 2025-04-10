@@ -37,7 +37,11 @@ header {
     outline: none;
 }
 
-.search-button,
+.btn-link:hover{
+    color: red;
+}
+
+.search-button, 
 .cart-button {
     background-color: transparent;
     border: none;
@@ -57,8 +61,10 @@ header {
 .menu {
     display: flex;
     justify-content: center;
-    /* Couleur de fond bleue */
     padding: 10px 0;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .menu-item {
@@ -70,8 +76,22 @@ header {
 
 .menu-item:hover {
     color: #ffffff;
-    /* Couleur blanche au survol */
     text-decoration: underline;
+}
+
+.no-orders-message {
+    color: #666;
+    /* Couleur neutre */
+    font-size: 1.2em;
+    text-align: center;
+    padding: 30px;
+    margin-top: 10px;
+    list-style: none;
+}
+
+.no-orders-message i {
+    margin-right: 5px;
+    /* Espacement entre l'icône et le texte */
 }
 
 footer {
@@ -79,7 +99,7 @@ footer {
     background-color: #333;
     color: white;
     text-align: center;
-    padding: 87px;
+    padding: 65px;
     display: flex;
 }
 
@@ -92,4 +112,31 @@ footer .container-fluid {
 footer a {
     color: white;
     text-decoration: none;
+}
+@media (max-width: 991px) {
+    .menu{
+        display: none;
+    }
+    .navbar-toggler{
+        display: block;
+    }
+    .menu.collapse.show{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+    .menu-item{
+        padding: 10px 0;
+    }
+    
+}
+
+@media (min-width:992px) {
+    .menu{
+        display: flex !important;
+    }
+    .navbar-toggler{
+        display: none;
+    }
+    
 }

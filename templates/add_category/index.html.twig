@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter une catégorie{% endblock %}
+
+{% block stylesheets %}
+{{ parent() }}
+<link rel="stylesheet" href="{{ asset('css/addCategory.css') }}">
+{% endblock %}
+
+{% block body %}
+
+<header>
+    <h1 class="text-center p-3 text-white"> Ajouter une catégorie </h1>
+</header>
+
+
+<div class="container">
+    {% if errors is defined %}
+        <div class="alert alert-danger">
+            <ul>
+                {% for error in errors %}
+                    <li>{{ error.message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+<form class="add-category-form" method="POST" enctype="multipart/form-data">
+    <div>
+        <label for="name">Catégorie : </label>
+        <input type="text" id="name" name="name" required>
+    </div>
+    <div>
+        <label for="description"> Description : </label>
+        <textarea id="description" name="description" rows="5"></textarea>
+    </div>
+    <div class="submit-container">
+        <button type="submit">Ajouter une catégorie</button>
+        <a href="{{ path('categories') }}" class="btn btn-secondary">Retour à la liste</a>
+    </div>
+</form>
+</div>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Catégories{% endblock %}
+
+{% block stylesheets %}
+{{ parent() }}
+<link rel="stylesheet" href="{{ asset('css/listCategories.css') }}">
+{% endblock %}
+
+{% block body %}
+
+<header> 
+    <h1 class="text-center p-3 text-white">Nos Catégories</h1>
+</header>
+
+<div class="container category-list mt-4">
+    {% for categorie in categories %}
+        <div class="category-card">
+            <h5>{{categorie.name}}</h5>
+            <a href="{{ path('update_category', {id: categorie.id}) }}" class="btn">Modifier la Catégorie</a>
+        </div>
+    {% else %}
+        <p> Aucune Catégorie trouvé.</p>
+    {% endfor %}
+</div>
+<div class="text-center mb-3">
+    <a href="add_category" class="button">Ajouter une Catégorie</a>
+</div>
+<div class="pagination">
+    {% if currentPage > 1 %}
+        <a href="?page={{ currentPage - 1 }}" class="button">Précédent</a>
+    {% endif %}
+    <span>Page {{ currentPage }} / {{ totalPages }}</span>
+    {% if currentPage < totalPages %}
+        <a href="?page={{ currentPage + 1 }}" class="button">Suivant</a>
+    {% endif %}
+</div>
+
+{% endblock %}

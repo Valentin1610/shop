@@ -5,6 +5,11 @@
 {% block stylesheets %}
 {{ parent() }}
 <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+<link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+{% endblock %}
+
+{% block javascripts %}
+<script src="{{asset('js/main.js')}}"></script>
 {% endblock %}
 
 {% block body %}
@@ -33,7 +38,10 @@
             <input type="email" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
 
             <label for="inputPassword">Mot de passe :</label>
-            <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+                <div class="password-field">
+                    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>  
+                    <i class="uil uil-eye-slash pw_hide"></i>
+                </div>
 
             <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
@@ -47,4 +55,5 @@
         </form>
     {% endif %}
 </div>
+
 {% endblock %}

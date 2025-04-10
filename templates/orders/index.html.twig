@@ -1,0 +1,104 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Toutes les commandes
+{% endblock %}
+
+{% block stylesheets %}
+
+	{{ parent() }}
+	<link rel="stylesheet" href="{{ asset('css/orders.css') }}">
+
+{% endblock %}
+
+{% block body %}
+	<header>
+		<h1 class="text-center p-3 text-white">Toutes les commandes</h1>
+	</header>
+
+	{% for message in app.flashes('error') %}
+		<div class="alert alert-danger">
+			{{ message }}
+		</div>
+	{% endfor %}
+
+
+	<div class="table-container">
+		<table>
+			<thead>
+				<tr>
+					<th>Numéro de la commande</th>
+					<th>Date de la commande</th>
+					<th>Date de la préparation</th>
+					<th>Date du quai de départ</th>
+					<th>Statut</th>
+					<th>Total</th>
+					<th>Numéro de client</th>
+					{% if app.user is not null ('Logisticien' in app.user.roles or 'Gestionnaire' in app.user.roles) %}
+						<th>Actions</th>
+					{% endif %}
+				</tr>
+			</thead>
+			<tbody>
+				{% for order in orders %}
+					<tr>
+						<td>{{ order.orderNumber }}</td>
+						<td>{{ order.orderDate|date('d/m/Y') }}</td>
+						<td>{{ order.preparationDate ? order.preparationDate|date('d/m/Y') : 'Non préparée' }}</td>
+						<td>{{ order.dateDepartureQuay ? order.dateDepartureQuay|date('d/m/Y') : 'Non expédiée' }}</td>
+						<td style="width: 325px;">
+							{% if app.user is not null and ('Logisticien' in app.user.roles or 'Gestionnaire' in app.user.roles) %}
+								<form method="post" action="{{ path('update_order_status', { 'id': order.id_orders }) }}">
+									<select name="status" class="form-select" id="status-{{ order.id_orders }}" onchange="toggleDateInput({{ order.id_orders }})">
+										{% for status in statuses %}
+											{% if 'Gestionnaire' in app.user.roles and status.status == 'Expédiée' or 'Logisticien' in app.user.roles %}
+												<option value="{{ status.idStatus }}" {{ order.getStatus() and status.idStatus == order.getStatus().getIdStatus() ? 'selected' : '' }}>
+													{{ status.status }}
+												</option>
+											{% endif %}
+										{% endfor %}
+									</select>
+									<input type="date" name="dateDepartureQuay" id="date-{{ order.id_orders }}" class="form-control mt-2" value="{{ order.dateDepartureQuay ? order.dateDepartureQuay|date('Y-m-d') : '' }}" {% if order.getStatus() and order.getStatus().getStatus() != 'Expédiée' %} style="display: none;" {% endif %}>
+									<button type="submit" class="btn btn-primary btn-sm mt-2">Mettre à jour</button>
+								</form>
+							{% else %}
+								{{ order.getStatus().getStatus() }}
+							{% endif %}
+						</td>
+
+						<td>{{ order.total }}€</td>
+						<td>{{order.user.getID()}}</td>
+						{% if app.user is not null and 'Logisticien' in app.user.roles %}
+							<td style="display: flex;">
+								<form method="post" action="{{ path('order_delete', { 'id': order.id_orders }) }}">
+									<button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
+								</form>
+							</td>
+						{% endif %}
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="{% if 'Logisticien' in app.user.roles %}7{% else %}6{% endif %}">Aucune commande disponible.</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+
+		<div class="pagination">
+			<a href="#" class="prev">&laquo;</a>
+			<span>Page 1</span>
+			<a href="#" class="next">&raquo;</a>
+		</div>
+	</div>
+	<script>
+    function toggleDateInput(orderId) {
+        let statusSelect = document.getElementById('status-' + orderId);
+        let dateInput = document.getElementById('date-' + orderId);
+        
+        if (statusSelect.value == "Expédiée") {
+            dateInput.style.display = "block";
+        } else {
+            dateInput.style.display = "none";
+        }
+    }
+</script>
+{% endblock %}

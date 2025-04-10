@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Vos Commandes{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+{% endblock %}
+
+{% block body %}
+<header>
+	<h1 class="text-center p-3 text-white">Vos Commandes </h1>
+</header>
+
+	<ul>
+		{% for order in orders %}
+			<li>
+				Commande #{{ order.id_orders }}
+				- Date:
+				{{ order.orderDate|date('Y-m-d H:i') }}
+				- Statut:
+				{{ order.status.status }}
+				- Total:
+				{{ order.total }}
+				<form action="{{ path('order_delete', {id: order.id_orders}) }}" method="post">
+					<button type="submit">Supprimer</button>
+				</form>
+				<a href="{{ path('order_edit', {id: order.id_orders}) }}">Modifier</a>
+			</li>
+		{% else %}
+<li class="no-orders-message">
+	<i class="fas fa-exclamation-circle"></i>
+	Aucune commande trouvée.
+</li>
+
+
+		{% endfor %}
+	</ul>
+{% endblock %}
+

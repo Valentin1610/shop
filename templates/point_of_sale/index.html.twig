@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nos Points de vente{% endblock %}
+
+{% block stylesheets %}
+{{ parent() }}
+<link rel="stylesheet" href="{{ asset('css/listCategories.css') }}">
+{% endblock %}
+
+{% block body %}
+
+<header> 
+    <h1 class="text-center p-3 text-white">Nos Points de vente</h1>
+</header>
+
+<div class="container category-list mt-4">
+    {% for point_of_sale in point_of_sales %}
+        <div class="category-card">
+            <h5>{{point_of_sale.enseigne}}</h5>
+            <a href="{{ path('update_point_of_sale', {id: point_of_sale.id_point_of_sale}) }}" class="btn">Modifier le Point de Vente</a>
+        </div>
+    {% else %}
+        <p> Aucun point de vente trouvé.</p>
+    {% endfor %}
+</div>
+
+<div class="text-center mb-3">
+    <a href="add_point_of_sale" class="button">Ajouter un point de vente</a>
+</div>
+<div class="pagination">
+    {% if currentPage > 1 %}
+        <a href="?page={{ currentPage - 1 }}" class="button">Précédent</a>
+    {% endif %}
+    <span>Page {{ currentPage }} / {{ totalPages }}</span>
+    {% if currentPage < totalPages %}
+        <a href="?page={{ currentPage + 1 }}" class="button">Suivant</a>
+    {% endif %}
+</div>
+
+{% endblock %}

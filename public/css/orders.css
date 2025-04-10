@@ -1,0 +1,125 @@
+/* Conteneur principal */
+.table-container {
+    max-width: 1000px;
+    margin: 55px auto;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 14px;
+}
+
+thead {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+th,
+td {
+    padding: 12px 16px;
+    border: 1px solid #ddd;
+}
+
+tbody tr:nth-child(odd) {
+    background-color: #f9f9f9;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #ffffff;
+}
+
+tbody tr:hover {
+    background-color: #e6f7ff;
+}
+
+th {
+    text-transform: uppercase;
+    font-size: 12px;
+    color: #666666;
+}
+
+/* Pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 0;
+    background-color: #ffffff;
+}
+
+.pagination a {
+    text-decoration: none;
+    color: #007bff;
+    font-size: 14px;
+    padding: 8px 12px;
+    margin: 0 4px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.pagination a:hover {
+    background-color: #007bff;
+    color: #ffffff;
+}
+
+.pagination a.active {
+    background-color: #007bff;
+    color: #ffffff;
+    font-weight: bold;
+    pointer-events: none;
+}
+
+/* Boutons précédent et suivant */
+.pagination a.prev,
+.pagination a.next {
+    font-weight: bold;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+
+    table,
+    thead,
+    tbody,
+    th,
+    td,
+    tr {
+        display: block;
+    }
+
+    th,
+    td {
+        padding: 10px;
+        border: none;
+    }
+
+    tbody tr {
+        margin-bottom: 10px;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        padding: 10px;
+    }
+
+    th {
+        display: none;
+    }
+
+    td {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    td:before {
+        content: attr(data-label);
+        font-weight: bold;
+        color: #666666;
+    }
+}

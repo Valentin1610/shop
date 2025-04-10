@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier le Fournisseur{% endblock %}
+
+{% block stylesheets %}
+{{ parent() }}
+<link rel="stylesheet" href="{{ asset('css/addCategory.css') }}">
+{% endblock %}
+
+{% block body %}
+<header>
+    <h1 class="text-center p-3 text-white"> Modifier le Fournisseur </h1>
+</header>
+
+<div class="container">
+    {% for message in app.flashes('success')%}
+        <div class="alert alert-success">
+            {{message}}
+        </div>
+    {% endfor %}
+
+    {% for message in app.flashes('danger') %}
+        <div class="alert alert-danger">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    <form class="add-category-form" method="POST">
+        <div>
+            <label for="denomination">Nom de l'entreprise : </label>
+            <input type="text" id="denomination" name="denomination" value="{{supplier.denomination}}" required>
+        </div>
+        <div>
+            <label for="name"> Nom abrégé : </label>
+            <input type ="text" id="name" name="name" value="{{supplier.name}}" required>
+        </div>
+        <div>
+            <label for="reference"> Référence :</label>
+            <input type ="text" id="reference" name="reference" value="{{supplier.reference}}" required>
+        </div>
+        <div>
+            <label for="phone"> Télépone : </label>
+            <input type ="text" id="phone" name="phone" value="{{supplier.phone}}" required>
+        </div>
+        <div>
+            <label for="email"> Email : </label>
+            <input type ="email" id="email" name="email" value="{{supplier.email}}" required>
+        </div>
+        <div class="submit-container mt-4 text-center">
+            <button type="submit" class="btn btn-primary">Mettre à jour</button>
+            <a href="{{ path('suppliers') }}" class="btn btn-secondary">Retour à la liste</a>
+        </div>
+    </form>
+    <div class="text-center">
+        <form method="POST" action="{{ path('delete_supplier', {id: supplier.idSuppliers}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce fournisseur ?');">
+            <button type="submit" class="btn btn-danger">Supprimer</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

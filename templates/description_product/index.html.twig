@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Description du produit
+{% endblock %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" href="{{ asset('css/descriptionProduct.css') }}">
+{% endblock %}
+
+
+{% block body %}
+
+	<header>
+		<h1 class="text-center p-3 text-white">{{descriptionProduct.name}}</h1>
+	</header>
+
+{% for label, messages in app.flashes %}
+    {% for message in messages %}
+        <div class="alert alert-{{ label }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endfor %}
+{% endfor %}
+
+	<div class="col-12 p-5">
+		<div class="row">
+			<div class="col-6">
+				<p>
+					<strong>Nom :</strong>
+					{{ descriptionProduct.name }}</p>
+				<p>
+					<strong>Prix :</strong>
+					{{ descriptionProduct.price }}
+					€</p>
+				<p>
+					<strong>Description :</strong>
+					{{ descriptionProduct.description }}</p>
+				<p>
+					<strong>Emplacement :</strong>
+					{{ descriptionProduct.emplacementRayonnage }}</p>
+				<p>
+					<strong>Référence :</strong>
+					{{ descriptionProduct.reference }}</p>
+			</div>
+			<div class="col-6">
+				<p>
+					<strong>Prix :</strong>
+					{{ descriptionProduct.price }}
+					€</p>
+				<p>
+					<strong>En stock :</strong>
+					{{ descriptionProduct.stock }}</p>
+				<form method="post" action="{{ path('cart_add', { 'id': descriptionProduct.id_products }) }}">
+					<label for="quantity">
+						<strong>Quantité :</strong>
+					</label>
+					<select id="quantity" name="quantity" class="form-select w-50">
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+					</select>
+					<button type="submit" class="add_cart">Ajouter au panier</button>
+				</form>
+			</div>
+		</div>
+
+
+	{% endblock %}

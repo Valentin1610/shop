@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon panier
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" href="{{ asset('css/cart.css') }}">
+{% endblock %}
+
+{% block body %}
+	<header>
+		<h1 class="text-center p-3 text-white">Mon panier</h1>
+		<p class="text-center text-white">
+			<strong>Total d'articles : {{ totalArticles }}</strong>
+		</p>
+	</header>{% for message in app.flashes('success') %}
+	<div class="alert alert-success text-center">{{ message }}</div>
+{% endfor %}
+{% for message in app.flashes('error') %}
+	<div class="alert alert-danger text-center">{{ message }}</div>
+{% endfor %}
+	{% if cart is empty %}
+		<h2 class="text-center p-5">Votre panier est vide.</h2>
+	{% else %}
+		<table class="table p-3 text-center">
+			<thead>
+				<tr>
+					<th>Produit</th>
+					<th>Prix unitaire</th>
+					<th>Quantité</th>
+					<th>Total</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for id, item in cart %}
+					<tr>
+						<td>{{ item.name }}</td>
+						<td>{{ item.price }}€</td>
+						<td>{{ item.quantity }}</td>
+						<td>{{ item.price * item.quantity }}€</td>
+						<td>
+							<form method="post" action="{{ path('cart_remove', { 'id': id }) }}">
+								<button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
+							</form>
+						</td>
+
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		<div class="text-center p-4">
+            <h3>Total du panier : {{total}}€</h3>
+            <form method="post" action="{{ path('cart_order') }}">
+                <button type="submit" class="btn btn-success">Passer la commande</button>
+            </form>
+        </div>
+
+	{% endif %}
+
+
+{% endblock %}

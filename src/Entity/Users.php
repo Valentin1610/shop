@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UsersRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -13,8 +15,8 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    #[ORM\Column()]
+    private ?int $id_users = null;
 
     #[ORM\Column(length: 180)]
     private ?string $email = null;
@@ -40,9 +42,28 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 40)]
     private ?string $phone = null;
 
+    #[ORM\ManyToOne(inversedBy: 'users')]
+    #[ORM\JoinColumn(name: "id_point_of_sale", referencedColumnName: "id_point_of_sale", nullable: true)]
+    private ?PointOfSale $id_point_of_sale = null;
+
+    /**
+     * @var Collection<int, Orders>
+     */
+    #[ORM\OneToMany(targetEntity: Orders::class, mappedBy: 'user')]
+    private Collection $orders;
+
+    public function __construct()
+    {
+        $this->orders = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
-        return $this->id;
+        return $this->id_users;
+    }
+    public function setId(int $id_users)
+    {
+        $this->id_users = $id_users;
     }
 
     public function getEmail(): ?string
@@ -75,8 +96,11 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
+
+        if (in_array('Gestionnaire', $this->roles)) {
+            $roles[] = 'ROLE_GESTIONNAIRE';
+        }
 
         return array_unique($roles);
     }
@@ -144,9 +168,48 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->phone;
     }
 
-    public function setPhone(string $phone): static
+    public function setPhone(?string $phone): self
     {
         $this->phone = $phone;
+
+        return $this;
+    }
+
+    public function getid_point_of_sale(): ?PointOfSale
+    {
+        return $this->id_point_of_sale;
+    }
+
+    public function setPointOfSale(?PointOfSale $id_point_of_sale): static
+    {
+        $this->id_point_of_sale = $id_point_of_sale;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Orders>
+     */
+    public function getOrders(): Collection
+    {
+        return $this->orders;
+    }
+
+    public function addOrder(Orders $order): static
+    {
+        if (!$this->orders->contains($order)) {
+            $this->orders->add($order);
+            $order->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrder(Orders $order): static
+    {
+        if ($this->orders->removeElement($order)) {
+            $this->orders->removeElement($order);
+        }
 
         return $this;
     }

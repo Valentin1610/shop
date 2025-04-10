@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Produits{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" href="{{ asset('css/listCategories.css') }}">
+{% endblock %}
+
+{% block body %}
+
+	<header>
+		<h1 class="text-center p-3 text-white">Nos Produits</h1>
+	</header>
+
+	<div class="container category-list">
+		{% for product in products %}
+			<div class="category-card">
+				<h5>{{ product.name }}</h5>
+				<p>{{ product.reference }}</p>
+				<p>{{ product.price}}
+				</p>
+				{% if 'Gestionnaire' in app.user.roles %}
+					<a href="{{path('update_product', {id:product.id_products}) }}" class="btn">Modifier le produit</a>
+				{% elseif 'Acheteur' in app.user.roles %}
+					<a href="{{path('description_product', {id:product.id_products})}}" class="btn">En savoir plus</a>
+				{% endif %}
+			</div>
+		{% else %}
+			<p>
+				Aucun Produit n'a été trouvé.</p>
+		{% endfor %}
+	</div>
+	{% if 'Gestionnaire' in app.user.roles %}
+		<div class="text-center mb-3">
+			<a href="{{ path("add_products")}}" class="button">Ajouter un Produit</a>
+		</div>
+	{% endif %}
+	<div class="pagination">
+		{% if currentPage > 1 %}
+			<a href="?page={{ currentPage - 1 }}" class="button">Précédent</a>
+		{% endif %}
+		<span>Page
+			{{ currentPage }}
+			/
+			{{ totalPages }}</span>
+		{% if currentPage < totalPages %}
+			<a href="?page={{ currentPage + 1 }}" class="button">Suivant</a>
+		{% endif %}
+	</div>
+
+{% endblock %}

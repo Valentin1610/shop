@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter un point de vente{% endblock %}
+
+{% block stylesheets %}
+{{ parent() }}
+<link rel="stylesheet" href= "{{asset('css/addCategory.css') }}">
+
+{% endblock %}
+
+{% block body %}
+
+<header>
+    <h1 class="text-center p-3 text-white"> Ajouter un Point de Vente</h1>
+</header>
+
+<div class="container">
+    {% if errors is defined %}
+        <div class="alert alert-danger">
+            <ul>
+                {% for error in errors %}
+                    <li>{{ error.message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    <form class="add-category-form" method="POST" enctype="multipart/form-data">
+        <div>
+            <label for="enseigne">Nom de l'enseigne: </label>
+            <input type="text" id="enseigne" name="enseigne" required>
+        </div>
+        <div>
+            <label for="name"> Nom : </label>
+            <input type ="text" id="name" name="name" required>
+        </div>
+        <div>
+            <label for="adress"> Adresse :</label>
+            <input type ="text" id="adress" name="adress" required>
+        </div>
+        <div>
+            <label for="zipcode"> Code Postal : </label>
+            <input type ="text" id="zipcode" name="zipcode" required>
+        </div>
+        <div>
+            <label for="city"> Ville : </label>
+            <input type ="text" id="city" name="city" required>
+        </div>
+        <div class="submit-container">
+            <button type="submit">Ajouter un Point de vente</button>
+            <a href="{{ path('point_of_sales') }}" class="btn btn-secondary">Retour à la liste</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

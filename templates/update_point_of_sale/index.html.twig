@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier le Point de vente{% endblock %}
+
+{% block stylesheets %}
+{{ parent() }}
+<link rel="stylesheet" href="{{ asset('css/addCategory.css') }}">
+{% endblock %}
+
+{% block body %}
+<header>
+    <h1 class="text-center p-3 text-white"> Modifier le point de vente </h1>
+</header>
+
+<div class="container">
+    {% for message in app.flashes('success')%}
+        <div class="alert alert-success">
+            {{message}}
+        </div>
+    {% endfor %}
+
+    {% for message in app.flashes('danger') %}
+        <div class="alert alert-danger">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    <form class="add-category-form" method="POST">
+        <div>
+            <label for="enseigne">Nom de l'enseigne : </label>
+            <input type="text" id="enseigne" name="enseigne" value="{{point_of_sale.enseigne}}" required>
+        </div>
+        <div>
+            <label for="name"> Nom : </label>
+            <input type ="text" id="name" name="name" value="{{point_of_sale.name}}" required>
+        </div>
+        <div>
+            <label for="adress"> Adresse :</label>
+            <input type ="text" id="adress" name="adress" value="{{point_of_sale.adress}}" required>
+        </div>
+        <div>
+            <label for="zipcode"> Télépone : </label>
+            <input type ="text" id="zipcode" name="zipcode" value="{{point_of_sale.zipcode}}" required>
+        </div>
+        <div>
+            <label for="city"> Ville : </label>
+            <input type ="text" id="city" name="city" value="{{point_of_sale.city}}" required>
+        </div>
+        <div class="submit-container mt-4 text-center">
+            <button type="submit" class="btn btn-primary">Mettre à jour</button>
+            <a href="{{ path('point_of_sales') }}" class="btn btn-secondary">Retour à la liste</a>
+        </div>
+    </form>
+    <div class="text-center">
+        <form method="POST" action="{{ path('delete_point_of_sale', {id: point_of_sale.id_point_of_sale}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce fournisseur ?');">
+            <button type="submit" class="btn btn-danger">Supprimer</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

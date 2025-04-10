@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajout d'un utilisateur{% endblock %}
+
+{% block stylesheets %}
+
+{{ parent() }}
+<link rel="stylesheet" href="{{ asset('css/addUser.css') }}">
+
+{% endblock %}
+
+{% block body %}
+<header>
+    <h1 class="text-center p-3 text-white">Ajout d'un utilisateur</h1>
+</header>
+
+<div>
+    <form method="POST" class="form-container">
+        <div class="form-group">
+            <label for="lastname"> Nom : </label>
+            <input type="text" id="lastname" name="lastname" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="firstname"> Prénom : </label>
+            <input type="text" id="firstname" name="firstname" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="email"> Email : </label>
+            <input type="email" id="email" name="email" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="password"> Mot de passe :</label>
+            <input type="password" id="password" name="password" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="role"> Role :</label>
+            <select id="role" name="role" class="form-control">
+                <option disabled selected>-- Veuillez choisir votre rôle --</option>
+                <option value="Acheteur">Acheteur</option>
+                <option value="Logisticien">Logisticien</option>
+                <option value="Gestionnaire">Gestionnaire</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="phone"> Telephone :</label>
+            <input type="text" id="phone" name="phone" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary text-center">Ajouter un utilisateur</button>
+    </form>
+</div>
+{% endblock %}

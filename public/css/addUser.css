@@ -1,0 +1,27 @@
+.form-container {
+    max-width: 400px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+.form-group {
+    margin-bottom: 15px;
+}
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    text-align: center;
+}
+button[type="submit"] {
+    margin-top: 20px;
+}

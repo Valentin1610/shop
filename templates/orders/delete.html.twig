@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Produits
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" href="{{ asset('css/listCategories.css') }}">
+{% endblock %}
+
+{% block body %}
+
+	<header>
+		<h1 class="text-center p-3 text-white">Nos Produits</h1>
+	</header>
+

@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des users{% endblock %}
+
+{% block stylesheets %}
+{{ parent() }}
+<link rel="stylesheet" href="{{ asset('css/listUsers.css') }}">
+{% endblock %}
+
+{% block body %}
+<header> 
+    <h1 class="text-center p-3 text-white">Nos Utilisateurs</h1>
+</header>
+
+<div class="container user-list">
+    {% for user in users %}
+        <div class="user-card">
+            <h5>{{user.lastname}}</h5>
+            <p>{{user.firstname}}</p>
+            <a href="{{ path('update_user',{id:user.id}) }}" class="btn">En savoir plus</a>
+        </div>
+    {% else %}
+        <p> Aucun Utilisateur trouvé.</p>
+    {% endfor %}
+</div>
+<div class="text-center mb-3">
+    <a href="add_user" class="button">Ajouter un utilisateur</a>
+</div>
+<div class="pagination">
+    {% if currentPage > 1 %}
+        <a href="?page={{ currentPage - 1 }}" class="button">Précédent</a>
+    {% endif %}
+    <span>Page {{ currentPage }} / {{ totalPages }}</span>
+    {% if currentPage < totalPages %}
+        <a href="?page={{ currentPage + 1 }}" class="button">Suivant</a>
+    {% endif %}
+</div>
+{% endblock %}
