@@ -26,7 +26,7 @@
 						<span class="navbar-toggler-icon"></span>
 					</button>
 					{% if app.user %}
-						<a class="navbar-brand text-white" href="{{ path('dashboard') }}">Titre</a>
+						<a class="navbar-brand text-white" href="{{ path('dashboard') }}">Passion 24h</a>
 						<div class="search-container">
 							<input type="text" placeholder="Rechercher" class="search-input">
 							<button class="search-button">
@@ -34,7 +34,7 @@
 							</button>
 						</div>
 					{% else %}
-						<span class="navbar-brand text-white">Titre</span>
+						<span class="navbar-brand text-white">Passion 24h</span>
 					{% endif %}
 					<div class="d-flex flex-column justify-content-between" style="height: 100px;">
 						{% if app.user %}
@@ -43,7 +43,7 @@
 							<form action="{{ path('security_logout') }}" method="post">
 								<button type="submit" class="btn-link btn ">Se déconnecter</button>
 							</form>
-							{% if app.user and 'Logisticien' and 'Gestionnaire' not in app.user.roles %}
+							{% if app.user and 'Logisticien' not in app.user.roles and 'Gestionnaire' not in app.user.roles %}
 								<button class="cart-button">
 									<a href="{{path('cart')}}">
 										<i class="fas fa-shopping-cart"></i>
@@ -51,38 +51,38 @@
 								</button>
 							{% endif %}
 						</div>
-					</div>
 
-				</nav>
-				<div class="collapse navbar-collapse menu" id="navbarNav">
-					{% if 'Gestionnaire' in app.user.roles %}
-						<a href="{{ path('users') }}" class="menu-item">Utilisateurs</a>
-						<a href="{{ path('orders')}}" class="menu-item">Commandes</a>
-						<a href="{{ path('products') }}" class="menu-item">Produits</a>
-						<a href="{{ path('suppliers') }}" class="menu-item">Fournisseurs</a>
-						<a href="{{path('point_of_sales')}}" class="menu-item">Points de vente</a>
-						<a href="{{ path('categories') }}" class="menu-item">Catégorie</a>
-					{% elseif "Logisticien" in app.user.roles %}
-						<a href="{{ path('orders')}}" class="menu-item">Commandes</a>
-						<a href="{{ path('products') }}" class="menu-item">Produits</a>
-						<a href="{{path('point_of_sales')}}" class="menu-item">Points de vente</a>
-					{% elseif "Acheteur" in app.user.roles %}
-						<a href="{{ path('products') }}" class="menu-item">Produits</a>
-						<a href="{{path('orders_user')}}" class="menu-item">Vos Commandes</a>
-					{% endif %}
-				</div>
-			{% endif %}
-		</header>
-		<div>
-			{% block body %}{% endblock %}
-		</div>
-		<footer>
-			<div class="container-fluid">
-				<a href="#">A Propos</a>
-				<a href="#">CGV</a>
-				<a href="#">RGP</a>
+					</nav>
+					<div class="collapse navbar-collapse menu" id="navbarNav">
+						{% if 'Gestionnaire' in app.user.roles %}
+							<a href="{{ path('users') }}" class="menu-item">Utilisateurs</a>
+							<a href="{{ path('orders')}}" class="menu-item">Commandes</a>
+							<a href="{{ path('products') }}" class="menu-item">Produits</a>
+							<a href="{{ path('suppliers') }}" class="menu-item">Fournisseurs</a>
+							<a href="{{path('point_of_sales')}}" class="menu-item">Points de vente</a>
+							<a href="{{ path('categories') }}" class="menu-item">Catégorie</a>
+						{% elseif "Logisticien" in app.user.roles %}
+							<a href="{{ path('orders')}}" class="menu-item">Commandes</a>
+							<a href="{{ path('products') }}" class="menu-item">Produits</a>
+							<a href="{{path('point_of_sales')}}" class="menu-item">Points de vente</a>
+						{% elseif "Acheteur" in app.user.roles %}
+							<a href="{{ path('products') }}" class="menu-item">Produits</a>
+							<a href="{{path('orders_user')}}" class="menu-item">Vos Commandes</a>
+						{% endif %}
+					</div>
+				{% endif %}
+			</header>
+			<div>
+				{% block body %}{% endblock %}
 			</div>
-		</footer>
+			<footer>
+				<div class="container-fluid">
+					<a href="#">A Propos</a>
+					<a href="#">CGV</a>
+					<a href="#">RGP</a>
+				</div>
+			</footer>
+		</div>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 	</body>

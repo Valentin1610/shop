@@ -1,4 +1,4 @@
-body, html {
+body,html {
     font-family: Arial, sans-serif;
     background-color: #f2f2f2;
     margin: 0;
@@ -9,7 +9,7 @@ header {
     background-color: #579AF6;
 }
 
-.btn{
+.btn {
     color: #000;
     font-size: 1em;
     text-decoration: none;
@@ -37,11 +37,11 @@ header {
     outline: none;
 }
 
-.btn-link:hover{
+.btn-link:hover {
     color: red;
 }
 
-.search-button, 
+.search-button,
 .cart-button {
     background-color: transparent;
     border: none;
@@ -91,16 +91,22 @@ header {
 
 .no-orders-message i {
     margin-right: 5px;
-    /* Espacement entre l'icône et le texte */
+    /* Espacement entre l'ic么ne et le texte */
 }
 
 footer {
     width: 100%;
     background-color: #333;
     color: white;
-    text-align: center;
     padding: 65px;
     display: flex;
+}
+
+.container-fluid {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
 }
 
 footer .container-fluid {
@@ -114,29 +120,29 @@ footer a {
     text-decoration: none;
 }
 @media (max-width: 991px) {
-    .menu{
+    .menu {
         display: none;
     }
-    .navbar-toggler{
+    .navbar-toggler {
         display: block;
     }
-    .menu.collapse.show{
+    .menu.collapse.show {
         display: flex;
         flex-direction: column;
         width: 100%;
     }
-    .menu-item{
+    .menu-item {
         padding: 10px 0;
     }
-    
+
 }
 
 @media (min-width:992px) {
-    .menu{
+    .menu {
         display: flex !important;
     }
-    .navbar-toggler{
+
+    .navbar-toggler {
         display: none;
     }
-    
 }

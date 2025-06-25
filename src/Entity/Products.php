@@ -47,6 +47,12 @@ class Products
     {
         return $this->id_products;
     }
+    public function setid_products(int $id_products): static
+    {
+        $this->id_products = $id_products;
+
+        return $this;
+    }
 
     public function getName(): ?string
     {
